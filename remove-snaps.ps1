@@ -19,12 +19,12 @@ $deleteable = (Get-Date).AddDays(-30)
 Write-Host "Deleting snapshots older than:" $deleteable
 
 #Delete the actual snaps.
-$snapshots = Get-GceSnapshot
+$snapshots = Get-GceSnapshot -Project $Project
     foreach ($snapshot in $snapshots) {
         $snapshotdate = get-date $snapshot.CreationTimestamp
         if ($snapshotdate -lt $deleteable) {
             Write-Host Removing snapshot: $snapshot.Name
-            Remove-GceSnapshot $snapshot.Name
+            Remove-GceSnapshot $snapshot.Name  -Project $Project
             }
 }
 
