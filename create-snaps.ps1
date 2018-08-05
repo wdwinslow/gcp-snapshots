@@ -20,9 +20,9 @@ foreach ($Zone in $Zones) {
 $DisksInZone = Get-GceDisk -Project $Project -zone $Zone | foreach { $_.Name }
 
     foreach ($Disk in $DisksInZone) {
-        Write-Host "=========================================="
-        Write-Host "$Zone "-" $Disk"
-        Write-Host "=========================================="
+        Write-Output"=========================================="
+        Write-Output "$Zone "-" $Disk"
+        Write-Output "=========================================="
         Add-GceSnapshot -project $Project -zone $Zone $Disk #In the future we could clean this output up a bit.
         }
 }
@@ -31,12 +31,12 @@ $DisksInZone = Get-GceDisk -Project $Project -zone $Zone | foreach { $_.Name }
 $EndTime = Get-Date
 
 #Print out the start and end times.
-Write-Host "=========================================="
-Write-Host "Started at:" $StartTime
-Write-Host "Ended at:" $EndTime
-Write-Host "=========================================="
+Write-Output "=========================================="
+Write-Output "Started at:" $StartTime
+Write-Output "Ended at:" $EndTime
+Write-Output "=========================================="
 
-#Stope the transcript.
+#Stop the transcript.
 Stop-Transcript
 
 #Send the PowerShell transcript (log) by email.  You can delete this entire section if you don't want log copies delivered by email.

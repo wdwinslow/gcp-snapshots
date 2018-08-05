@@ -16,14 +16,14 @@ $StartTime = Get-Date
 $deleteable = (Get-Date).AddDays(-30)
 
 #Log what date and time we set $deleteable to.
-Write-Host "Deleting snapshots older than:" $deleteable
+Write-Output "Deleting snapshots older than:" $deleteable
 
 #Delete the actual snaps.
 $snapshots = Get-GceSnapshot -Project $Project
     foreach ($snapshot in $snapshots) {
         $snapshotdate = get-date $snapshot.CreationTimestamp
         if ($snapshotdate -lt $deleteable) {
-            Write-Host Removing snapshot: $snapshot.Name
+            Write-Output Removing snapshot: $snapshot.Name
             Remove-GceSnapshot $snapshot.Name  -Project $Project
             }
 }
@@ -32,12 +32,12 @@ $snapshots = Get-GceSnapshot -Project $Project
 $EndTime = Get-Date
 
 #Print out the start and end times.
-Write-Host "=========================================="
-Write-Host "Started at:" $StartTime
-Write-Host "Ended at:" $EndTime
-Write-Host "=========================================="
+Write-Output "=========================================="
+Write-Output "Started at:" $StartTime
+Write-Output "Ended at:" $EndTime
+Write-Output "=========================================="
 
-#Stope the transcript.
+#Stop the transcript.
 Stop-Transcript
 
 #Send the PowerShell transcript (log) by email.  You can delete this entire section if you don't want log copies delivered by email.
