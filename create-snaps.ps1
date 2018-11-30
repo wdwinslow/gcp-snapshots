@@ -20,7 +20,7 @@ foreach ($Zone in $Zones) {
 $DisksInZone = Get-GceDisk -Project $Project -zone $Zone | foreach { $_.Name }
 
     foreach ($Disk in $DisksInZone) {
-        Write-Output"=========================================="
+        Write-Output "=========================================="
         Write-Output "$Zone "-" $Disk"
         Write-Output "=========================================="
         Add-GceSnapshot -project $Project -zone $Zone $Disk #In the future we could clean this output up a bit.
